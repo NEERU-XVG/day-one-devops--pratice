@@ -1,0 +1,8 @@
+stages :
+  - checkout 
+
+git -checkout:
+  script:
+    - git clone https://github.com/pathnex/sample-java-app.git
+    - cd sample-java-app
+    -ls -la
