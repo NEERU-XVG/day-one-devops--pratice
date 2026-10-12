@@ -1,0 +1,17 @@
+stages:
+  - build
+  - test
+  - package 
+default:
+  image: maven:3.8.1-openjdk-17
+  before-script:
+    - git clone https://github.com/pathned/sample-java-app.git
+    - cd sample-java-app
+ maven-build:
+   stage:test 
+   script:
+      - mnv test
+ maven-package:
+   stage: package
+   script:
+    - mnv package
