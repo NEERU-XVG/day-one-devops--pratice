@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+    parameters {
+        string(name: 'ENVIRONMENT',defaultvalue: 'dev', description: 'Deployment Enviroment')
+    }
+    environment {
+        INSTITUTE_NAME = "pathnex"
+    }
+    stages {
+        stage('checkout') {
+            steps {
+                git branch: 'main',url: 'https://github.com/pathnex/sample-java-app.git'
+            }
+        }
+        stage('Buils') {
+           when {
+              branch 'main'
+           }
+        }
+        steps {
+            sh 'mnv clean compile'
+        }
+    }
+    stage('Deploy') {
+        when {
+            expression { params.ENVIRONMENT =='dev' }
+        }
+        steps {
+            sh 'echo "Deploying to $ENVIRONMENT by $INSTITUTE_NAME"'
+        }
+      }
+   }
+}
